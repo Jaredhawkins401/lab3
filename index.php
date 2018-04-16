@@ -1,3 +1,5 @@
+
+
 <?php 
 require_once("dbconn.php");//check if files are included, if not include them
 require_once("getsave.php");
@@ -9,9 +11,16 @@ $email = $_POST['email'];
 $zipcode = $_POST['zipcode'];
 $owner = $_POST['owner'];
 $phone = $_POST['phone'];
+$id = $_POST['id'];
 
 switch($action){ 
 	
+    case "Read":
+        $corp = returnRows();
+        include_once("corpEchoFull.php");
+        break;
+    
+    
 	case "Add":
 		include_once("saveForm.php"); //go to form if add is clicked
 		break;
@@ -22,9 +31,16 @@ switch($action){
 		include_once("corpEcho.php");//make tables with data
 		break;
 	
-    case "Delete":
+    case "Update":
+        updateCorp($db, $id, $corp, $incorp_dt, $email, $zipcode, $owner, $phone);
         $corp = returnRows();
-        include_once("deleteForm.php");
+        include_once("corpEcho.php");
+        break;
+        
+    case "Delete":
+        deleteCorp($db, $id);
+        $corp = returnRows();
+        include_once("corpEcho.php");
         break;
 	
 	default:
@@ -35,3 +51,15 @@ switch($action){
 
 }
 ?>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <link rel = "stylesheet"
+   type = "text/css"
+   href = "style.css" />
+</head>
+<body>
+</body>
+</html>

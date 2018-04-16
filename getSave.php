@@ -8,7 +8,29 @@ function returnRows(){
 }
 function addCorp($db, $corp ,$incorp_dt, $email, $zipcode, $owner, $phone){
 	
-	$sql = "INSERT INTO corps (corp, incorp_dt, email, zipcode, owner, phone) VALUES (:corp, :incorp_dt, :email, :zipcode, :owner, :phone)"; //statement to insert new corp
+	$sql = "INSERT INTO corps (corp, incorp_dt, email, zipcode, owner, phone) VALUES (:corp, NOW(), :email, :zipcode, :owner, :phone)"; //statement to insert new corp
+	$statement = $db->prepare($sql); //create statement 
+	$statement->bindParam(':corp', $corp);
+	//$statement->bindParam(':incorp_dt', $incorp_dt);//add all parameters
+	$statement->bindParam(':email', $email);
+	$statement->bindParam(':zipcode', $zipcode);
+	$statement->bindParam(':owner', $owner);
+	$statement->bindParam(':phone', $phone);
+	$result = $statement->execute();//add data store if it failed or succeeded into result
+    if($result == 1)
+    {
+        echo "Added successfully!";
+    }
+    else
+    {
+        echo "Insertion failed";
+    }
+	
+}
+
+function updateCorp($db, $id, $corp, $incorp_dt, $email, $zipcode, $owner, $phone)
+{
+	$sql = "UPDATE corps SET corp = :corp, incorp_dt = :incorp_dt, email = :email, zipcode = :zipcode, owner = :owner, phone = :phone WHERE id = :id"; //statement to insert new corp
 	$statement = $db->prepare($sql); //create statement 
 	$statement->bindParam(':corp', $corp);
 	$statement->bindParam(':incorp_dt', $incorp_dt);//add all parameters
@@ -16,8 +38,32 @@ function addCorp($db, $corp ,$incorp_dt, $email, $zipcode, $owner, $phone){
 	$statement->bindParam(':zipcode', $zipcode);
 	$statement->bindParam(':owner', $owner);
 	$statement->bindParam(':phone', $phone);
-	$statement->execute();//add data
-	
+    $statement->bindParam(':id', $id);
+	$result = $statement->execute();//add data
+    if($result == 1)
+    {
+        echo "Updated successfully!";
+    }
+    else
+    {
+        echo "Update failed";
+    }
 }
 
+function deleteCorp($db, $id)
+{
+    $sql = "DELETE FROM corps WHERE id = :id";
+    $statement = $db->prepare($sql);
+    $statement->bindParam(':id', $id);
+    $result = $statement->execute();
+    if($result == 1)
+    {
+        echo "Deleted successfully!";
+    }
+    else
+    {
+        echo "Deletion failed";
+    }
+}
 ?>
+
