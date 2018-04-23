@@ -1,6 +1,6 @@
 <?php 
 $dsn = "mysql:host=localhost;dbname=phpclassspring2018";
-$userName = "jhawkins";
+$userName = "PHPClassSpring2018";
 $pWord = "se266";
 try{
 	
