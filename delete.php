@@ -1,5 +1,5 @@
 <?php
-$conn=mysqli_connect("localhost","jhawkins","se266","phpclassspring2018"); //connection 
+$conn=mysqli_connect("localhost","PHPClassSpring2018","se266","phpclassspring2018"); //connection 
 
 if (mysqli_connect_errno()) { //error if you can't connect
 echo "Could not connect: " . mysqli_connect_error();
